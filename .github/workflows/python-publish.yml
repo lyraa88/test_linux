@@ -1,7 +1,7 @@
 name: Fetch and Save JSON
 
 on:
-  workflow_dispatch:        # ← 이 부분 추가
+  workflow_dispatch:
   schedule:
     - cron: "*/5 * * * *"
   push:
@@ -31,6 +31,9 @@ jobs:
       - name: Run script (save to /tmp)
         run: python scripts/get_date.py
 
+      - name: Show /tmp/test.json content
+        run: cat /tmp/test.json
+
       - name: Copy file from /tmp to repo
         run: |
           mkdir -p data
@@ -42,6 +45,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data/test.json
           git commit -m "Update test.json at $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
-          git push
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/lyraa88/test_linux.git
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
