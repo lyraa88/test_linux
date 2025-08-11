@@ -28,7 +28,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run script (save to /tmp)
-        run: python scripts/get_data.py
+        run: python scripts/get_date.py
 
       - name: Copy file from /tmp to repo
         run: |
