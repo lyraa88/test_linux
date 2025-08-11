@@ -1,6 +1,7 @@
 name: Fetch and Save JSON
 
 on:
+  workflow_dispatch:        # ← 이 부분 추가
   schedule:
     - cron: "*/5 * * * *"
   push:
